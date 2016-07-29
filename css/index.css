@@ -1,0 +1,96 @@
+/**
+ *
+ *
+ * @author     Knut Kohl <github@knutkohl.de>
+ * @copyright  2016 Knut Kohl
+ * @license    MIT License (MIT) http://opensource.org/licenses/MIT
+ * @version    1.0.0
+ */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    padding-top: 70px;
+}
+
+.theme-dropdown .dropdown-menu {
+    position: static;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.theme .navbar .container {
+    width: auto;
+}
+
+.navbar-brand {
+    padding-top: 7px;
+}
+
+.navbar-brand img {
+    height: 2em;
+    width: 2em;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 50px;
+    background-color: #E0E0E0;
+    /* show only above 480px */
+    display: none;
+}
+
+.container .text-muted {
+    margin-top: 15px;
+}
+
+a.tag {
+    color: black;
+}
+
+.cloud {
+    float: left;
+    padding-right: 1em;
+}
+
+.cloud a {
+}
+
+ul.list {
+    padding-left: 20px;
+}
+
+form {
+    display: inline;
+}
+
+textarea[name=text] {
+    height: 40em;
+    font-family: monospace;
+}
+
+input[name=name] {
+    font-family: monospace;
+}
+
+@media screen {
+    .hidden-screen {
+        display: none;
+    }
+}
+
+@media (min-width: 480px) {
+    body {
+        padding-bottom: 50px;
+    }
+
+    .footer {
+        display: block;
+    }
+}
+
