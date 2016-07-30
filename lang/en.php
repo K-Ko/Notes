@@ -12,10 +12,13 @@ return array(
 
     'Notes'       => 'Notes',
     'Home'        => 'Home',
+
     'AddNote'     => 'Add note',
     'EditNote'    => 'Edit note',
     'SaveNote'    => 'Save note',
     'DeleteNote'  => 'Delete note',
+
+    'NotesWith'   => 'Notes with',
 
     'created'     => 'created',
     'changed'     => 'changed',

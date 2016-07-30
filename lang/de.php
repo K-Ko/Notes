@@ -12,10 +12,13 @@ return array(
 
     'Notes'       => 'Notizen',
     'Home'        => 'Startseite',
+
     'AddNote'     => 'Notiz hinzufügen',
     'EditNote'    => 'Notiz ändern',
     'SaveNote'    => 'Notiz speichern',
     'DeleteNote'  => 'Notiz löschen',
+
+    'NotesWith'   => 'Notizen mit',
 
     'created'     => 'erstellt',
     'changed'     => 'geändert',
