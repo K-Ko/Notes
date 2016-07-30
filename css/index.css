@@ -26,12 +26,7 @@ body {
 }
 
 .navbar-brand {
-    padding-top: 7px;
-}
-
-.navbar-brand img {
-    height: 2em;
-    width: 2em;
+    padding-top: 9px;
 }
 
 .footer {

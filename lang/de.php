@@ -24,4 +24,7 @@ return array(
     'changed'     => 'geändert',
     'by'          => 'von',
 
+    // Confirm delete
+    'AreYouSure'  => 'Bist Du sicher?',
+
 );

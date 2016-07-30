@@ -33,8 +33,10 @@
     <!-- include summernote -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/index.css" rel="stylesheet">
+    <!-- Custom styles for this template, http://csscompressor.com/ -->
+    <style type="text/css">
+      html{position:relative;min-height:100%}body{padding-top:70px}.theme-dropdown .dropdown-menu{position:static;display:block;margin-bottom:20px}.theme .navbar .container{width:auto}.navbar-brand{padding-top:9px}.footer{position:absolute;bottom:0;width:100%;height:50px;background-color:#E0E0E0;display:none}.container .text-muted{margin-top:15px}a.tag{color:#000}.cloud{float:left;padding-right:1em}ul.list{padding-left:20px}form{display:inline}textarea[name=text]{height:40em;font-family:monospace}input[name=name]{font-family:monospace}@media screen{.hidden-screen{display:none}}@media (min-width: 480px){body{padding-bottom:50px}.footer{display:block}}
+    </style>
 
   </head>
 
@@ -52,7 +54,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="https://github.com/K-Ko/Notes"
-             target="_blank"><img src="images/logo.png"></a>
+             target="_blank"><img src="images/logo.png" width="32" height="32"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -115,10 +117,19 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <!-- include summernote -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
 
-    <script src="js/index.js"></script>
+        $('form[name=delete]').on('submit', function() {
+            return confirm('{{AreYouSure}}');
+        });
+
+        setTimeout(function() {
+              $('.alert.autohide').hide('slow');
+        }, 5000);
+
+    });
+    </script>
   </body>
 </html>
 
