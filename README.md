@@ -1,5 +1,16 @@
 # Notes
-Note taking application with **#HashTags**
+
+### Simple Note taking application with **#HashTags**
+
+## ScreenShots
+
+### Desktop
+
+![Desktop ScreenShot](doc/desktop.png)
+
+### Mobile
+
+![Mobile ScreenShot](doc/mobile.png)
 
 ## Install
 
