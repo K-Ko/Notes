@@ -12,19 +12,40 @@ return array(
 
     'Notes'       => 'Notes',
     'Home'        => 'Home',
+    'Hashtags'    => 'Hashtags',
+
+    'User'        => 'User',
+    'Password'    => 'Password',
+    'Login'       => 'Login',
+    'Welcome'     => 'Welcome',
+    'Logout'      => 'Logout',
 
     'AddNote'     => 'Add note',
     'EditNote'    => 'Edit note',
+    'PreviewNote' => 'Preview',
     'SaveNote'    => 'Save note',
     'DeleteNote'  => 'Delete note',
 
-    'NotesWith'   => 'Notes with',
+    'NoteSaved'   => 'Note was saved',
+    'NoteDeleted' => 'Note was deleted',
 
     'created'     => 'created',
     'changed'     => 'changed',
-    'by'          => 'by',
+
+    'clearFilter' => 'Reset filter',
 
     // Confirm delete
     'AreYouSure'  => 'Are you sure?',
+    'Yes'         => 'Yes',
+    'No'          => 'No',
+
+    'Edit'        => 'Edit',
+    'Preview'     => 'Preview',
+    'Title'       => 'Title',
+    'TitlePlaceholder' => 'Title / name of the note here ...',
+    'Content'     => 'Content',
+    'ContentPlaceholder' => 'Note content here ...',
+    'MarkDownSyntaxHelp' => 'MarkDown syntax help',
+    'LinksDiabledInPreview' => 'Links in preview mode are disabled.',
 
 );

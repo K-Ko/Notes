@@ -1,0 +1,167 @@
+/**
+ *
+ * @author     Knut Kohl <github@knutkohl.de>
+ * @copyright  2016 Knut Kohl
+ * @license    MIT License (MIT) http://opensource.org/licenses/MIT
+ * @version    1.0.0
+ */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    padding-top: 60px;
+    display: none;
+}
+
+.theme-dropdown .dropdown-menu {
+    position: static;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.theme .navbar .container {
+    width: auto;
+}
+
+.navbar-brand {
+    padding-top: 9px;
+}
+
+.ajax-load-wrapper {
+    height: 32px;
+    line-height: 1;
+    font-size: inherit;
+    display: none;
+}
+
+.ajax-loader {
+    position: relative;
+    left: 50%;
+    margin-right: -16px;
+    display: none;
+}
+
+.row,
+.row.note .content {
+    display: none;
+}
+
+.row.active,
+.row.note .content.active {
+    display: block;
+}
+
+.row.login {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.notes-tab {
+    padding: 15px 15px 0 15px;
+    border: 1px solid #ddd;
+    border-top: transparent;
+    display: none;
+}
+
+.notes-tab.active {
+    display: block;
+}
+
+.note h1 {
+    font-size: 27px;
+}
+
+.note h2 {
+    font-size: 23px;
+}
+
+.note h3 {
+    font-size: 18px;
+}
+
+.note h4 {
+    font-size: 14px;
+}
+
+small.badge {
+    margin-left: .5em;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 50px;
+    background-color: #E0E0E0;
+    /* show only above 480px */
+    display: none;
+}
+
+.container .text-muted {
+    margin-top: 15px;
+}
+
+a.tag {
+    color: black;
+}
+
+.cloud {
+    float: left;
+    padding-right: 1em;
+}
+
+.cloud a {
+}
+
+ul.list {
+    padding-left: 20px;
+}
+
+input[name=title] {
+    font-family: monospace;
+}
+
+textarea[name=content] {
+    height: 25em;
+    font-family: monospace;
+}
+
+#preview-content {
+    margin-top: 2em;
+}
+
+pre code {
+    white-space: pre;
+}
+
+@media screen {
+    .hidden-screen {
+        display: none;
+    }
+}
+
+@media (min-width: 480px) {
+    body {
+        padding-bottom: 70px;
+    }
+
+    .footer {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .ajax-load-wrapper {
+    	display: block;
+    }
+}
+
+@media (min-height: 1000px) {
+    textarea[name=content] {
+        height: 35em;
+    }
+}
+

@@ -167,8 +167,8 @@ abstract class NoteTagBase extends \ORM
           `tag` int(10) unsigned NOT NULL,
           PRIMARY KEY (`note`,`tag`),
           KEY `tag` (`tag`),
-          CONSTRAINT `note_tag_ibfk_2` FOREIGN KEY (`tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE,
-          CONSTRAINT `note_tag_ibfk_1` FOREIGN KEY (`note`) REFERENCES `note` (`id`) ON DELETE CASCADE
+          CONSTRAINT `note_tag_ibfk_1` FOREIGN KEY (`note`) REFERENCES `note` (`id`) ON DELETE CASCADE,
+          CONSTRAINT `note_tag_ibfk_2` FOREIGN KEY (`tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8
     ';
 

@@ -133,7 +133,7 @@ abstract class TagBase extends \ORM
           `tag` varchar(255) NOT NULL DEFAULT \'\' COMMENT \'Unique hash tag\',
           PRIMARY KEY (`id`),
           UNIQUE KEY `tag` (`tag`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
+        ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8
     ';
 
     /**

@@ -153,10 +153,30 @@ abstract class ORM implements \Iterator, \Countable {
     }
 
     /**
+     * Same as $this->order()
+     *
+     * @return instance
+     */
+    public function orderBy($field, $desc=false)
+    {
+        return $this->order($field, $desc);
+    }
+
+    /**
      *
      * @return instance
      */
     public function orderDesc($field)
+    {
+        return $this->order($field, true);
+    }
+
+    /**
+     * Same as $this->orderDesc()
+     *
+     * @return instance
+     */
+    public function orderByDesc($field)
     {
         return $this->order($field, true);
     }
@@ -289,7 +309,10 @@ abstract class ORM implements \Iterator, \Countable {
      */
     public function insert()
     {
-        return $this->_insert('INSERT');
+        if ($this->beforeInsert() === false) {
+            return false;
+        }
+        return $this->afterInsert($this->_insert('INSERT'));
     }
 
     /**
@@ -297,7 +320,10 @@ abstract class ORM implements \Iterator, \Countable {
      */
     public function replace()
     {
-        return $this->_insert('REPLACE');
+        if ($this->beforeReplace() === false) {
+            return false;
+        }
+        return $this->afterReplace($this->_insert('REPLACE'));
     }
 
     /**
@@ -305,6 +331,10 @@ abstract class ORM implements \Iterator, \Countable {
      */
     public function update()
     {
+        if ($this->beforeUpdate() === false) {
+            return false;
+        }
+
         $set = array();
         foreach ($this->fields as $field=>$value) {
             // Skip primary key(s) and not changed values
@@ -325,9 +355,10 @@ abstract class ORM implements \Iterator, \Countable {
         // Anything changed?
         if (empty($set)) return 0;
 
-        $sql = 'UPDATE ' . $this->table . ' SET ' . implode(',', $set) . $this->_filter() . ' LIMIT 1';
+        $sql = 'UPDATE `' . $this->table . '` SET ' . implode(',', $set) . $this->_filter() . ' LIMIT 1';
         $this->_query($sql);
-        return self::$db->affected_rows;
+
+        return $this->afterUpdate(self::$db->affected_rows);
     }
 
     /**
@@ -335,9 +366,13 @@ abstract class ORM implements \Iterator, \Countable {
      */
     public function delete()
     {
+        if ($this->beforeDelete() === false) {
+            return false;
+        }
+
         $sql = 'DELETE FROM `' . $this->table . '`'
              . $this->_filter($this->primary, $this->primaryValues());
-        return $this->_query($sql);
+        return $this->afterDelete($this->_query($sql));
     }
 
     /**
@@ -345,7 +380,10 @@ abstract class ORM implements \Iterator, \Countable {
      */
     public function truncate()
     {
-        return $this->_query('TRUNCATE `' . $this->table . '`');
+        if ($this->beforeTruncate() === false) {
+            return false;
+        }
+        return $this->afterTruncate($this->_query('TRUNCATE `' . $this->table . '`'));
     }
 
     /**
@@ -723,6 +761,81 @@ abstract class ORM implements \Iterator, \Countable {
     }
 
     /**
+     * Overwrite if needed
+     * @return boolean Return false to skip operation
+     */
+    protected function beforeInsert() {
+        return true;
+    }
+
+    /**
+     * Overwrite if needed
+     */
+    protected function afterInsert($rc) {
+        return $rc;
+    }
+
+    /**
+     * Overwrite if needed
+     * @return boolean Return false to skip operation
+     */
+    protected function beforeReplace() {
+        return true;
+    }
+
+    /**
+     * Overwrite if needed
+     */
+    protected function afterReplace($rc) {
+        return $rc;
+    }
+
+    /**
+     * Overwrite if needed
+     * @return boolean Return false to skip operation
+     */
+    protected function beforeUpdate() {
+        return true;
+    }
+
+    /**
+     * Overwrite if needed
+     */
+    protected function afterUpdate($rc) {
+        return $rc;
+    }
+
+    /**
+     * Overwrite if needed
+     * @return boolean Return false to skip operation
+     */
+    protected function beforeDelete() {
+        return true;
+    }
+
+    /**
+     * Overwrite if needed
+     */
+    protected function afterDelete($rc) {
+        return $rc;
+    }
+
+    /**
+     * Overwrite if needed
+     * @return boolean Return false to skip operation
+     */
+    protected function beforeTruncate() {
+        return true;
+    }
+
+    /**
+     * Overwrite if needed
+     */
+    protected function afterTruncate($rc) {
+        return $rc;
+    }
+
+    /**
      *
      */
     protected function _asObject()
@@ -753,10 +866,15 @@ abstract class ORM implements \Iterator, \Countable {
             }
         }
 
-        $sql = $mode.' INTO ' . $this->table
-             . ' (`' . implode('`, `', $keys) . '`) '
-             . 'VALUES'
-             . ' (' . implode(', ', $values) . ')';
+//         $sql = $mode.' INTO `' . $this->table . '`'
+//              . ' (`' . implode('`, `', $keys) . '`) '
+//              . 'VALUES'
+//              . ' (' . implode(', ', $values) . ')';
+
+        $sql = sprintf(
+            '%s INTO `%s` (`%s`) VALUES (%s)',
+            $mode, $this->table, implode('`, `', $keys), implode(', ', $values)
+        );
 
         if (($mode == 'INSERT') && ($dup = $this->onDuplicateKey())) {
             $sql .= ' ON DUPLICATE KEY UPDATE ' . $dup;

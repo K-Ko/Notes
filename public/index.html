@@ -1,0 +1,224 @@
+<!--
+/**
+ *
+ *
+ * @author     Knut Kohl <github@knutkohl.de>
+ * @copyright  2016 Knut Kohl
+ * @license    MIT License (MIT) http://opensource.org/licenses/MIT
+ * @version    1.0.0
+ */
+-->
+
+<!DOCTYPE html>
+<html lang="{$language}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>Notes</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/pnotify.min.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://github.com/K-Ko/Notes"
+                   target="_blank"><img src="/images/logo.png" width="32" height="32"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li data-item="home">
+                        <a href="#" class="notes-home" data-i18n-text="Home"></a>
+                    </li>
+                    <li data-item="add">
+                        <a href="#" class="notes-add" data-i18n-text="AddNote"></a>
+                    </li>
+                    <li>
+                        <a href="#" class="notes-logout" data-i18n-text="Logout"></a>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div id="container" class="container theme" role="main">
+
+        <div class="ajax-load-wrapper">
+            <img class="ajax-loader" src="/images/ajax-loader.gif" width="32" height="32">
+        </div>
+
+        <!-- Login -->
+        <div class="row login">
+
+            <div class="col-sm-6 col-sm-push-3">
+
+                <div class="form-group">
+                    <label for="login-user" class="control-label" data-i18n-text="User"></label>
+                    <input id="login-user" class="form-control login" type="text" name="user"
+                           data-i18n-placeholder="User" required="required">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password" class="control-label" data-i18n-text="Password"></label>
+                    <input id="login-password" class="form-control login" type="password" name="password"
+                           data-i18n-placeholder="Password" required="required">
+                </div>
+
+                <div class="form-group">
+                    <div class="hidden-print" style="margin-top:2em">
+                        <button class="notes-login btn btn-primary" data-i18n-text="Login"></button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div> <!-- /container -->
+
+        <div class="row note">
+
+            <div class="col-sm-9">
+
+                <!-- Notes list -->
+                <div class="content list">
+                    <h1 data-i18n-text="Notes"></h1>
+                    <div></div>
+                </div>
+
+                <!-- Notes content -->
+                <div class="content display">
+                    <h1 id="show-title"></h1>
+                    <div id="show-content" class="note" style="margin-top:2em"></div>
+
+                    <div class="hidden-print" style="margin-top:2em">
+                        <button class="edit-note btn btn-primary" data-i18n-text="EditNote"></button>
+                        &nbsp;
+                        <button class="delete-note btn btn-danger" data-i18n-text="DeleteNote"></button>
+                    </div>
+
+                    <hr>
+
+                    <div style="font-size:smaller">
+                        <i class="fa fa-fw fa-file-text" data-i18n-title="created"></i>
+                        <span class="notes-created"></span>
+                        <span class="notes-changed-wrapper">
+                            , <i class="fa fa-fw fa-pencil" data-i18n-title="changed"></i>
+                            <span class="notes-changed"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Note edit -->
+                <div class="content edit">
+
+                    <h1 id="edit-header"></h1>
+
+                    <ul class="nav nav-tabs edit" role="tablist">
+                        <li role="presentation" class="active" role="tab">
+                            <a href="#" data-toggle="tab" data-target="#tab-edit" data-i18n-text="Edit"></a>
+                        </li>
+                        <li role="presentation" role="tab">
+                            <a href="#" data-toggle="tab" data-target="#tab-preview" data-i18n-text="Preview"></a>
+                        </li>
+                    </ul>
+
+                    <div id="tab-edit" class="notes-tab active">
+
+                        <div class="form-group">
+                            <label for="edit-title" class="control-label" data-i18n-text="Title"></label>
+                            <input id="edit-title" class="form-control" type="text" name="title"
+                                   data-i18n-placeholder="TitlePlaceholder" required="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-content" class="control-label" data-i18n-text="Content"></label>
+                            <textarea id="edit-content" class="form-control" name="content"
+                                      data-i18n-placeholder="ContentPlaceholder" required="required"></textarea>
+                            <p class="help-block">
+                                <a href="https://daringfireball.net/projects/markdown/syntax" data-i18n-text="MarkDownSyntaxHelp"></a>
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div id="tab-preview" class="notes-tab">
+                        <h1 id="preview-title"></h1>
+                        <div id="preview-content" class="note"></div>
+                        <hr>
+                        <p data-i18n-text="LinksDiabledInPreview"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="hidden-print" style="margin-top:2em">
+                            <button class="save-note btn btn-primary" data-i18n-text="SaveNote"></button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="tags" class="col-sm-3 hidden-print" style="margin-bottom:60px">
+                <h1 data-i18n-text="Hashtags"></h1>
+                <div></div>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+    <footer class="footer hidden-print">
+      <div class="container">
+        <p class="text-muted">
+          <div style="font-size:smaller;float:right">
+            Logo by <a href="http://www.iconarchive.com/show/stock-icons-by-hamzasaleem/Notes-icon.html">Hamza Saleem</a>
+          </div>
+          <strong>Notes v<span id="version"></span></strong>
+          <em><small>(<span id="version-date"></span>)</small></em>
+          on
+          <a href="https://github.com/K-Ko/Notes"><i class="fa fa-github"> GitHub</i></a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script src="/js/js.cookie.js"></script>
+    <script src="/js/pnotify.min.js"></script>
+    <script src="/js/index.js"></script>
+
+  </body>
+</html>
+

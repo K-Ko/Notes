@@ -1,11 +1,7 @@
 vendor/
-tmp/*
-!tmp/.githold
 
 .develop
-composer.lock
 config.php
 _index.html
 build.*
 
-nbproject/
