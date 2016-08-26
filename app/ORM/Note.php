@@ -37,10 +37,10 @@ class Note extends NoteBase
     /**
      * Find hash tags in 'name' and 'text'
      */
-    function getTags() {
+    public function getTags() {
         $tags = array();
 
-        foreach (array($this->getName(), $this->getText()) as $txt) {
+        foreach (array($this->getTitle(), $this->getContent()) as $txt) {
             if (preg_match_all(self::$HashTagRegex, $txt, $matches, PREG_SET_ORDER)) {
                 foreach ($matches as $match) {
                     $tags[$match[1]] = true;
@@ -54,7 +54,7 @@ class Note extends NoteBase
     /**
      *
      */
-    function format( $formatText = false ) {
+    public function format( $formatText = false ) {
         $note = $this->asObject();
 
         $note->created = date(self::$DateTimeFormat, strtotime($note->created));
@@ -62,14 +62,14 @@ class Note extends NoteBase
 
         if ($formatText) {
             // 1st parse for tags
-            $note->text = preg_replace(
+            $note->content = preg_replace(
                 self::$HashTagRegex,
-                '<a class="hidden-print" href="?tag=$1">#$1</a>'.
+                '<a class="search-for-tag hidden-print" data-tag="$1" href="#">#$1</a>'.
                 // Hide on screens, print only
                 '<span class="hidden-screen">#$1</span>',
-                $note->text
+                $note->content
             );
-            $note->text = \Parsedown::instance()->text($note->text);
+            $note->content = \Parsedown::instance()->text($note->content);
         }
 
         // Add. calculated attribute
@@ -78,9 +78,79 @@ class Note extends NoteBase
         return $note;
     }
 
+    /**
+     *
+     */
+    public function rawObject() {
+        $note = $this->asObject();
+        $note->created = strtotime($note->created);
+        $note->changed = strtotime($note->changed);
+        return $note;
+    }
+
+    /**
+     * Basic setter for field "text"
+     * Replace TAB with 4 spaces
+     *
+     * @param  mixed    $text Text value
+     * @return Instance For fluid interface
+     */
+    public function setContent($text)
+    {
+        return parent::setContent(str_replace("\t", '    ', $text));
+    }   // setText()
+
+    /**
+     * Basic setter for field "uid"
+     *
+     * @param  mixed    $uid Uid value
+     * @return Instance For fluid interface
+     */
+    public function setUid($uid)
+    {
+        // immutable
+        return $this;
+    }   // setUid()
+
+    /**
+     * Raw setter for field "uid", for INSERT, REPLACE and UPDATE
+     *
+     * @param  mixed    $uid Uid value
+     * @return Instance For fluid interface
+     */
+    public function setUidRaw($uid)
+    {
+        // immutable
+        return $this;
+    }   // setUidRaw()
+
     // -------------------------------------------------------------------------
     // PROTECTED
     // -------------------------------------------------------------------------
+
+    /**
+     * Update note tags
+     */
+    protected function afterInsert($rc) {
+        NoteTag::updateHashTagsFromNote($this);
+        return parent::afterInsert($rc);
+    }
+
+    /**
+     * Update note tags
+     */
+    protected function afterUpdate($rc) {
+        NoteTag::updateHashTagsFromNote($this);
+        return parent::afterUpdate($rc);
+    }
+
+    /**
+     * Update note tags
+     */
+    protected function afterDelete($rc) {
+        NoteTag::updateHashTagsFromNote($this);
+        return parent::afterDelete($rc);
+    }
 
     /**
      *
@@ -88,7 +158,11 @@ class Note extends NoteBase
     protected function _asObject()
     {
         $data = parent::_asObject();
-        $data->tags = $this->getTags();
+        unset($data->id);
+        $data->content = str_replace("\r", '', $data->content);
+        $data->tags    = $this->getTags();
+        $data->created_ts = strtotime($data->created);
+        $data->changed_ts = strtotime($data->changed);
         return $data;
     }
 

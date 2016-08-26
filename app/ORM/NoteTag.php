@@ -11,6 +11,10 @@
  *
  * 1.0.0
  * - Initial creation
+ *
+ * 1.1.0
+ * - Add callbacks to run after insert, replace, update, delete and truncate
+ *
  */
 namespace ORM;
 
@@ -21,9 +25,24 @@ class NoteTag extends NoteTagBase
 {
 
     /**
-     * Insert your extensions here...
-     *
-     * Access table name with $this->table
+     * Update hashtags for a given note
      */
+    public static function updateHashTagsFromNote(Note $note) {
+
+        $ORMNoteTag = new self;
+        $ORMNoteTag->filterByNote($note->getId())->delete();
+        $ORMNoteTag->reset()->setNote($note->getId());
+
+        $ORMTag = new Tag;
+
+        foreach ($note->getTags() as $tag) {
+            $ORMTag->reset()->filterByTag($tag)->findOne();
+            $ORMTag->getId() || $ORMTag->setTag($tag)->insert();
+            $ORMNoteTag->setTag($ORMTag->getId())->insert();
+        }
+
+        // Remove orphan tags without notes
+        Tag::removeOrphanTags();
+    }
 
 }

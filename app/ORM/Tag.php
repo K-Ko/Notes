@@ -26,13 +26,27 @@ class Tag extends TagBase
     /**
      * Remove orphan tags without notes
      */
-    public function removeOrphanTags() {
-        return $this->_query('
+    public static function removeOrphanTags() {
+        return self::$db->query('
             DELETE `tag`
               FROM `tag`
               LEFT JOIN `note_tag` ON `tag`.`id` = `note_tag`.`tag`
              WHERE `note_tag`.`note` IS NULL
-        '); // Works not with table aliases...
+        '); // Works NOT with table aliases...
+    }
+
+    // -------------------------------------------------------------------------
+    // PROTECTED
+    // -------------------------------------------------------------------------
+
+    /**
+     *
+     */
+    protected function _asObject()
+    {
+        $data = parent::_asObject();
+        $data->id = +$data->id;
+        return $data;
     }
 
 }

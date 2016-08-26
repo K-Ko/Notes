@@ -1,0 +1,244 @@
+
+swagger: '2.0'
+
+info:
+  version: "1"
+  title: Notes API
+  description: Retrieve and modify notes
+  contact:
+    name: Knut Kohl
+    email: github@knutkohl.de
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+
+basePath: /api/1
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+# ============================================================================
+
+parameters:
+
+  NoteId:
+    name: id
+    in: path
+    description: ID of note
+    type: integer
+    required: true
+
+  NoteBody:
+    name: body
+    in: body
+    description: Note content
+    required: true
+    schema:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Note name
+        content:
+          type: string
+          description: Note markdown
+        user:
+          type: string
+          description: User edited the note
+
+# ============================================================================
+
+definitions:
+
+  # --------------------------------------------------------------------------
+
+  Note:
+    description: Note object
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique note Id
+      title:
+        type: string
+        description: Note name
+      content:
+        type: string
+        description: Note markdown
+      created:
+        type: integer
+        description: Timestamp
+      created_by:
+        type: string
+        description: User created the note
+      changed:
+        type: integer
+        description: Timestamp
+      changed_by:
+        type: string
+        description: User changed the note
+      tags:
+        type: array
+        description: List of note tags
+        items:
+          type: string
+          description: Tag
+
+  # --------------------------------------------------------------------------
+
+  Tag:
+    description: Tag object
+    type: object
+    properties:
+      name:
+        type: string
+      count:
+        type: integer
+        description: Count of notes for this tag
+      notes:
+        type: array
+        description: List of note Ids
+        items:
+          type: integer
+          description: Note Id
+
+  # --------------------------------------------------------------------------
+
+  Tags:
+    description: List of tags
+    type: array
+    items:
+      $ref: '#/definitions/Tag'
+
+  # --------------------------------------------------------------------------
+
+  NoteResponse:
+    $ref: '#/definitions/Note'
+
+  NotesResponse:
+    type: array
+    items:
+      $ref: '#/definitions/Note'
+
+  TagsResponse:
+    $ref: '#/definitions/Tags'
+
+# ============================================================================
+
+paths:
+
+  # --------------------------------------------------------------------------
+
+  /notes:
+    get:
+      operationId: GetNotes
+      description: Get all notes
+      responses:
+        '200':
+          description: List of notes
+          schema:
+            $ref: '#/definitions/NotesResponse'
+
+    put:
+      operationId: CreateNote
+      parameters:
+        - $ref: '#/parameters/NoteBody'
+      responses:
+        '201':
+          description: Note created
+          schema:
+            $ref: '#/definitions/NoteResponse'
+        '400':
+          description: Invalid data supplied
+      security:
+        - api_key: []
+
+  # --------------------------------------------------------------------------
+
+  /notes/{id}:
+    get:
+      operationId: GetNote
+      description: Get a note
+      parameters:
+        - $ref: '#/parameters/NoteId'
+      responses:
+        '200':
+          description: Note
+          schema:
+            $ref: '#/definitions/NoteResponse'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Note not found
+
+    post:
+      operationId: UpdateNote
+      parameters:
+        - $ref: '#/parameters/NoteId'
+        - $ref: '#/parameters/NoteBody'
+      responses:
+        '200':
+          description: Note
+          schema:
+            $ref: '#/definitions/NoteResponse'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Note not found
+      security:
+        - api_key: []
+
+    delete:
+      operationId: DeleteNote
+      parameters:
+        - $ref: '#/parameters/NoteId'
+      responses:
+        '204':
+          description: Note deleted
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Note not found
+      security:
+        - api_key: []
+
+  # --------------------------------------------------------------------------
+
+  /tags:
+    get:
+      operationId: GetTags
+      description: Get all tags
+      responses:
+        '200':
+          description: List of tags
+          schema:
+            $ref: '#/definitions/TagsResponse'
+
+  # --------------------------------------------------------------------------
+
+  /tags/{tag}:
+    get:
+      operationId: GetNotesForTag
+      description: Get notes for given tag
+      parameters:
+        - name: tag
+          in: path
+          description: Tag to search notes for
+          type: string
+          required: true
+      responses:
+        '200':
+          description: List of tags
+          schema:
+            $ref: '#/definitions/NotesResponse'
+
+# ============================================================================
+
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header

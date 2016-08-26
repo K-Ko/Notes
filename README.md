@@ -1,12 +1,24 @@
 # Notes
-Note taking application with **#HashTags**
+
+### Simple Note taking application with **#HashTags**
+
+## ScreenShots
+
+### Desktop
+
+![Desktop ScreenShot](doc/desktop.png)
+
+### Mobile
+
+![Mobile ScreenShot](doc/mobile.png)
 
 ## Install
 
-- Clone the repository into your document root
+- Clone the repository
+- Set your document root to the ```public````folder
 - Create configuration file
 
-    ```cp config.dist.php config.php```
+    ```cp config/config.dist.php config/config.php```
 
 - Change your settings, especially the database credentials
 - Run Composer
@@ -21,6 +33,10 @@ Fork the repo and make your changes
 
 ### Make a translation for your language
 
-    cp lang/en.php lang/<YourLangId>.php
+Prepare your translation file based on ```en.php```
+
+    lang/translate.sh <Your2CharacterLangId>
+
+Translate
 
 ### Make a pull request

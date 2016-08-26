@@ -36,52 +36,76 @@ abstract class NoteBase extends \ORM
      */
 
     /**
-     * Basic setter for field "name"
+     * Basic setter for field "uid"
      *
-     * @param  mixed    $name Name value
+     * @param  mixed    $uid Uid value
      * @return Instance For fluid interface
      */
-    public function setName($name)
+    public function setUid($uid)
     {
-        $this->fields['name'] = $name;
+        $this->fields['uid'] = $uid;
         return $this;
-    }   // setName()
+    }   // setUid()
 
     /**
-     * Raw setter for field "name", for INSERT, REPLACE and UPDATE
+     * Raw setter for field "uid", for INSERT, REPLACE and UPDATE
      *
-     * @param  mixed    $name Name value
+     * @param  mixed    $uid Uid value
      * @return Instance For fluid interface
      */
-    public function setNameRaw($name)
+    public function setUidRaw($uid)
     {
-        $this->raw['name'] = $name;
+        $this->raw['uid'] = $uid;
         return $this;
-    }   // setNameRaw()
+    }   // setUidRaw()
 
     /**
-     * Basic setter for field "text"
+     * Basic setter for field "title"
      *
-     * @param  mixed    $text Text value
+     * @param  mixed    $title Title value
      * @return Instance For fluid interface
      */
-    public function setText($text)
+    public function setTitle($title)
     {
-        $this->fields['text'] = $text;
+        $this->fields['title'] = $title;
         return $this;
-    }   // setText()
+    }   // setTitle()
 
     /**
-     * Raw setter for field "text", for INSERT, REPLACE and UPDATE
+     * Raw setter for field "title", for INSERT, REPLACE and UPDATE
      *
-     * @param  mixed    $text Text value
+     * @param  mixed    $title Title value
      * @return Instance For fluid interface
      */
-    public function setTextRaw($text)
+    public function setTitleRaw($title)
     {
-        $this->raw['text'] = $text;
+        $this->raw['title'] = $title;
         return $this;
-    }   // setTextRaw()
+    }   // setTitleRaw()
+
+    /**
+     * Basic setter for field "content"
+     *
+     * @param  mixed    $content Content value
+     * @return Instance For fluid interface
+     */
+    public function setContent($content)
+    {
+        $this->fields['content'] = $content;
+        return $this;
+    }   // setContent()
+
+    /**
+     * Raw setter for field "content", for INSERT, REPLACE and UPDATE
+     *
+     * @param  mixed    $content Content value
+     * @return Instance For fluid interface
+     */
+    public function setContentRaw($content)
+    {
+        $this->raw['content'] = $content;
+        return $this;
+    }   // setContentRaw()
 
     /**
      * Basic setter for field "created"
@@ -108,30 +132,6 @@ abstract class NoteBase extends \ORM
     }   // setCreatedRaw()
 
     /**
-     * Basic setter for field "created_by"
-     *
-     * @param  mixed    $created_by CreatedBy value
-     * @return Instance For fluid interface
-     */
-    public function setCreatedBy($created_by)
-    {
-        $this->fields['created_by'] = $created_by;
-        return $this;
-    }   // setCreatedBy()
-
-    /**
-     * Raw setter for field "created_by", for INSERT, REPLACE and UPDATE
-     *
-     * @param  mixed    $created_by CreatedBy value
-     * @return Instance For fluid interface
-     */
-    public function setCreatedByRaw($created_by)
-    {
-        $this->raw['created_by'] = $created_by;
-        return $this;
-    }   // setCreatedByRaw()
-
-    /**
      * Basic setter for field "changed"
      *
      * @param  mixed    $changed Changed value
@@ -155,30 +155,6 @@ abstract class NoteBase extends \ORM
         return $this;
     }   // setChangedRaw()
 
-    /**
-     * Basic setter for field "changed_by"
-     *
-     * @param  mixed    $changed_by ChangedBy value
-     * @return Instance For fluid interface
-     */
-    public function setChangedBy($changed_by)
-    {
-        $this->fields['changed_by'] = $changed_by;
-        return $this;
-    }   // setChangedBy()
-
-    /**
-     * Raw setter for field "changed_by", for INSERT, REPLACE and UPDATE
-     *
-     * @param  mixed    $changed_by ChangedBy value
-     * @return Instance For fluid interface
-     */
-    public function setChangedByRaw($changed_by)
-    {
-        $this->raw['changed_by'] = $changed_by;
-        return $this;
-    }   // setChangedByRaw()
-
     // -----------------------------------------------------------------------
     // Getter methods
     // -----------------------------------------------------------------------
@@ -194,24 +170,34 @@ abstract class NoteBase extends \ORM
     }   // getId()
 
     /**
-     * Basic getter for field "name"
+     * Basic getter for field "uid"
      *
-     * @return mixed Name value
+     * @return mixed Uid value
      */
-    public function getName()
+    public function getUid()
     {
-        return $this->fields['name'];
-    }   // getName()
+        return $this->fields['uid'];
+    }   // getUid()
 
     /**
-     * Basic getter for field "text"
+     * Basic getter for field "title"
      *
-     * @return mixed Text value
+     * @return mixed Title value
      */
-    public function getText()
+    public function getTitle()
     {
-        return $this->fields['text'];
-    }   // getText()
+        return $this->fields['title'];
+    }   // getTitle()
+
+    /**
+     * Basic getter for field "content"
+     *
+     * @return mixed Content value
+     */
+    public function getContent()
+    {
+        return $this->fields['content'];
+    }   // getContent()
 
     /**
      * Basic getter for field "created"
@@ -224,16 +210,6 @@ abstract class NoteBase extends \ORM
     }   // getCreated()
 
     /**
-     * Basic getter for field "created_by"
-     *
-     * @return mixed CreatedBy value
-     */
-    public function getCreatedBy()
-    {
-        return $this->fields['created_by'];
-    }   // getCreatedBy()
-
-    /**
      * Basic getter for field "changed"
      *
      * @return mixed Changed value
@@ -242,16 +218,6 @@ abstract class NoteBase extends \ORM
     {
         return $this->fields['changed'];
     }   // getChanged()
-
-    /**
-     * Basic getter for field "changed_by"
-     *
-     * @return mixed ChangedBy value
-     */
-    public function getChangedBy()
-    {
-        return $this->fields['changed_by'];
-    }   // getChangedBy()
 
     // -----------------------------------------------------------------------
     // Filter methods
@@ -270,16 +236,28 @@ abstract class NoteBase extends \ORM
     }   // filterById()
 
     /**
-     * Filter for field "name"
+     * Filter for field "title"
      *
-     * @param  mixed    $name Filter value
+     * @param  mixed    $title Filter value
      * @return Instance For fluid interface
      */
-    public function filterByName($name)
+    public function filterByTitle($title)
     {
-        $this->filter[] = '`name` = '.$this->quote($name);
+        $this->filter[] = '`title` = '.$this->quote($title);
         return $this;
-    }   // filterByName()
+    }   // filterByTitle()
+
+    /**
+     * Filter for field "uid"
+     *
+     * @param  mixed    $uid Filter value
+     * @return Instance For fluid interface
+     */
+    public function filterByUid($uid)
+    {
+        $this->filter[] = '`uid` = '.$this->quote($uid);
+        return $this;
+    }   // filterByUid()
 
     /**
      * Filter for field "created"
@@ -306,40 +284,16 @@ abstract class NoteBase extends \ORM
     }   // filterByChanged()
 
     /**
-     * Filter for field "text"
+     * Filter for field "content"
      *
-     * @param  mixed    $text Filter value
+     * @param  mixed    $content Filter value
      * @return Instance For fluid interface
      */
-    public function filterByText($text)
+    public function filterByContent($content)
     {
-        $this->filter[] = '`text` = '.$this->quote($text);
+        $this->filter[] = '`content` = '.$this->quote($content);
         return $this;
-    }   // filterByText()
-
-    /**
-     * Filter for field "created_by"
-     *
-     * @param  mixed    $created_by Filter value
-     * @return Instance For fluid interface
-     */
-    public function filterByCreatedBy($created_by)
-    {
-        $this->filter[] = '`created_by` = '.$this->quote($created_by);
-        return $this;
-    }   // filterByCreatedBy()
-
-    /**
-     * Filter for field "changed_by"
-     *
-     * @param  mixed    $changed_by Filter value
-     * @return Instance For fluid interface
-     */
-    public function filterByChangedBy($changed_by)
-    {
-        $this->filter[] = '`changed_by` = '.$this->quote($changed_by);
-        return $this;
-    }   // filterByChangedBy()
+    }   // filterByContent()
 
     // -----------------------------------------------------------------------
     // PROTECTED
@@ -360,43 +314,41 @@ abstract class NoteBase extends \ORM
     protected $createSQL = '
         CREATE TABLE `note` (
           `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-          `name` varchar(255) NOT NULL DEFAULT \'\',
-          `text` text NOT NULL,
+          `uid` char(16) NOT NULL,
+          `title` varchar(255) NOT NULL DEFAULT \'\',
+          `content` text NOT NULL,
           `created` datetime NOT NULL DEFAULT \'0000-00-00 00:00:00\',
-          `created_by` varchar(127) NOT NULL DEFAULT \'\',
           `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-          `changed_by` varchar(127) NOT NULL DEFAULT \'\',
           PRIMARY KEY (`id`),
-          UNIQUE KEY `name` (`name`),
+          UNIQUE KEY `name` (`title`),
+          UNIQUE KEY `uid` (`uid`),
           KEY `created` (`created`),
           KEY `changed` (`changed`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8
+        ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8
     ';
 
     /**
      *
      */
     protected $fields = array(
-        'id'         => '',
-        'name'       => '',
-        'text'       => '',
-        'created'    => '',
-        'created_by' => '',
-        'changed'    => '',
-        'changed_by' => ''
+        'id'      => '',
+        'uid'     => '',
+        'title'   => '',
+        'content' => '',
+        'created' => '',
+        'changed' => ''
     );
 
     /**
      *
      */
     protected $nullable = array(
-        'id'         => false,
-        'name'       => false,
-        'text'       => false,
-        'created'    => false,
-        'created_by' => false,
-        'changed'    => false,
-        'changed_by' => false
+        'id'      => false,
+        'uid'     => false,
+        'title'   => false,
+        'content' => false,
+        'created' => false,
+        'changed' => false
     );
 
     /**

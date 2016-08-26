@@ -26,4 +26,20 @@ class Tags extends TagsBase
      * Access table name with $this->table
      */
 
+    // -------------------------------------------------------------------------
+    // PROTECTED
+    // -------------------------------------------------------------------------
+
+    /**
+     *
+     */
+    protected function _asObject()
+    {
+        $data = parent::_asObject();
+        $data->notes   = json_decode($data->notes);
+        $data->count   = +$data->count;
+        return $data;
+    }
+
+
 }

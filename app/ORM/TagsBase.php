@@ -40,16 +40,6 @@ abstract class TagsBase extends \ORM
     // -----------------------------------------------------------------------
 
     /**
-     * Basic getter for field "id"
-     *
-     * @return mixed Id value
-     */
-    public function getId()
-    {
-        return $this->fields['id'];
-    }   // getId()
-
-    /**
      * Basic getter for field "tag"
      *
      * @return mixed Tag value
@@ -82,18 +72,6 @@ abstract class TagsBase extends \ORM
     // -----------------------------------------------------------------------
     // Filter methods
     // -----------------------------------------------------------------------
-
-    /**
-     * Filter for field "id"
-     *
-     * @param  mixed    $id Filter value
-     * @return Instance For fluid interface
-     */
-    public function filterById($id)
-    {
-        $this->filter[] = '`id` = '.$this->quote($id);
-        return $this;
-    }   // filterById()
 
     /**
      * Filter for field "tag"
@@ -148,14 +126,13 @@ abstract class TagsBase extends \ORM
      * @var string $createSQL
      */
     protected $createSQL = '
-        CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tags` AS select `t`.`id` AS `id`,`t`.`tag` AS `tag`,concat(\'[\',convert(group_concat(`nt`.`note` separator \',\') using utf8mb4),\']\') AS `notes`,count(`nt`.`note`) AS `count` from (`tag` `t` left join `note_tag` `nt` on((`t`.`id` = `nt`.`tag`))) group by `nt`.`tag` having `count`
+        CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tags` AS select `t`.`tag` AS `tag`,concat(\'["\',group_concat(`n`.`uid` separator \'","\'),\'"]\') AS `notes`,count(`nt`.`note`) AS `count` from ((`tag` `t` left join `note_tag` `nt` on((`t`.`id` = `nt`.`tag`))) join `note` `n` on((`nt`.`note` = `n`.`id`))) group by `nt`.`tag` having `count`
     ';
 
     /**
      *
      */
     protected $fields = array(
-        'id'    => '',
         'tag'   => '',
         'notes' => '',
         'count' => ''

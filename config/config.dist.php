@@ -15,14 +15,19 @@ return array(
     ),
 
     /**
-     * List of allowed users, passwords MUST hashed by SHA1, not plain text!
-     * You can build the md5 hashes for example here: http://onlinemd5.com/
+     * List of allowed users and passwords
      */
     'BasicAuth' => array(
-//      'user1' => 'SHA1 hashed password1',
-//      'user2' => 'SHA1 hashed password2',
+//      'user1' => 'password1',
+//      'user2' => 'password2',
 //      ...
     ),
+
+    /**
+     * How long will the session be valid in days
+     */
+    'SessionLifeTime' => 0, // Browser session only
+#   'SessionLifeTime' => 1, // One day
 
     /**
      * How to list notes in overview and tag search, as
