@@ -73,6 +73,20 @@ CREATE TABLE `note_tag` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `session`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `session` (
+  `user` varchar(32) NOT NULL DEFAULT '',
+  `token` char(40) NOT NULL DEFAULT '',
+  `until` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `tag`
 --
 
@@ -155,8 +169,13 @@ DELIMITER ;
 
 -- Dump completed
 
----
---- Example note
----
-INSERT INTO `note` (`title`, `content`) VALUES
-('Example note', '# Header 1\n## Header 2\n### Header 3\n\n    pre\n \n> blockquote\n\n**bold** __bold__ \n\n*italic* _italic_ \n\n***bold italic*** ___bold italic___ \n\n- list\n- list\n- list\n\n1. ordered list\n1. ordered list\n1. ordered list\n\n#ExampleTag\n');
+--
+-- Example note
+--
+
+INSERT INTO `note` (`id`, `title`, `content`) VALUES
+(1, 'Example note', 'Example note',	'# Header 1\n## Header 2\n### Header 3\n\n    pre 1\n\n```\npre 2\n```\n \n> blockquote\n\n**bold 1** and __bold 2__, *italic 1* and _italic 2_, ***bold italic 1*** and ___bold italic 2___ \n\n- unordered list 1\n- unordered list 1\n- unordered list 1\n\n* unordered list 2\n* unordered list 2\n* unordered list 2\n\n1. ordered list\n1. ordered list\n1. ordered list\n\n#ExampleTag\n');
+
+INSERT INTO `tag` (`id`, `tag`) VALUES (1, 'ExampleTag');
+
+INSERT INTO `note_tag` (`note`, `tag`) VALUES (1, 1);
