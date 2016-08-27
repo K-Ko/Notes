@@ -43,7 +43,7 @@ class Note extends NoteBase
         foreach (array($this->getTitle(), $this->getContent()) as $txt) {
             if (preg_match_all(self::$HashTagRegex, $txt, $matches, PREG_SET_ORDER)) {
                 foreach ($matches as $match) {
-                    $tags[$match[1]] = true;
+                    $tags[$match[2]] = true;
                 }
             }
         }
@@ -64,7 +64,7 @@ class Note extends NoteBase
             // 1st parse for tags
             $note->content = preg_replace(
                 self::$HashTagRegex,
-                '<a class="search-for-tag hidden-print" data-tag="$1" href="#">#$1</a>'.
+                '$1<a class="search-for-tag hidden-print" data-tag="$2" href="#">#$2</a>$3'.
                 // Hide on screens, print only
                 '<span class="hidden-screen">#$1</span>',
                 $note->content

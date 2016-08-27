@@ -48,4 +48,6 @@ return array(
     'MarkDownSyntaxHelp' => 'MarkDown syntax help',
     'LinksDiabledInPreview' => 'Links in preview mode are disabled.',
 
+    'SearchFor'   => 'Search for ...',
+
 );
