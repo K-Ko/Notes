@@ -36,7 +36,7 @@ $(document).ready(function() {
     $(document).ajaxError(function(event, jqxhr, settings) {
         if (jqxhr.status == 401) {
             Cookies.remove('token');
-            // location.href = '/';
+            location.href = '/';
         }
         console.log(event, jqxhr, settings);
         new PNotify({
@@ -94,7 +94,7 @@ $(document).ready(function() {
         editNote();
     });
 
-    $('input.login').keypress(function(e) {
+    $('input.login').on('keypress', function(e) {
         if (e.which == 13) {
             $('button.notes-login').trigger('click');
         }
@@ -171,18 +171,18 @@ $(document).ready(function() {
         var t = $('#edit-title'),
             c = $('#edit-content'),
             uid = $(this).data('uid'),
-            url = API + (uid ? '/notes/'+uid : '/notes'),
+            url = (uid ? '/'+uid : ''),
             data = { uid: uid, title: t.val(), content: c.val() };
 
         if (!checkRequired(t) || !checkRequired(c)) return;
 
         $.ajax({
-            url: url,
+            url: API + '/notes' + url,
             type: uid ? 'POST' : 'PUT',
             data: JSON.stringify(data)
         }).done(function(data) {
             new PNotify({ type: 'success', text: _('NoteSaved') });
-            showNote(data);
+            renderNote(data.uid);
             renderTagCloud();
         });
     });
@@ -194,7 +194,7 @@ $(document).ready(function() {
             checkRequired(c);
 
             $.post(
-                API + '/notes/render',
+                API + '/render',
                 JSON.stringify({ title: t.val(), content: c.val() })
             ).done(function(note) {
                 $('#preview-title').html(note.title);
@@ -203,6 +203,40 @@ $(document).ready(function() {
         }
     });
 
+    $('input[data-provides="search"]').on('keypress', function(e) {
+        if (e.which == 13) {
+            $('button[data-provides="search"]').trigger('click');
+        }
+    });
+
+    $('button[data-provides="search"]').on('click', function(e) {
+
+        if (!$('input[data-provides="search"]').val()) return;
+
+        toggleContent();
+
+        $.getJSON(
+            API + '/notes',
+            { q: $('input[data-provides="search"]').val() }
+        ).done(function(notes) {
+            var h1 = $('h1', '.content.notes-list');
+            var el = $('<ul/>').addClass('list');
+
+            h1.text(_(h1.data('i18n-text')));
+
+            $.each(notes, function(id, note) {
+                el.append(renderNoteListItem(note));
+            });
+
+            $('ul.nav.navbar-nav li').removeClass('active');
+            $('li[data-item="home"]', 'ul.nav.navbar-nav').addClass('active');
+
+            $('div', '.content.list').empty().html(el);
+        }).always(function(){
+            toggleContent('list');
+        });
+
+    });
 });
 
 /**
@@ -212,8 +246,11 @@ function renderNotesList(tag) {
 
     toggleContent();
 
+    var data = tag ? { t: tag } : null;
+
     $.getJSON(
-        API + (tag ? '/notes/tag/'+tag : '/notes')
+        API + '/notes',
+        data
     ).done(function(notes) {
         var h1 = $('h1', '.content.notes-list');
         var el = $('<ul/>').addClass('list');
@@ -259,7 +296,7 @@ function renderNoteListItem(note) {
  */
 function renderNote(uid) {
     $.getJSON(
-        API + '/notes/html/'+uid
+        API + '/render/'+uid
     ).done(function(note) {
         showNote(note);
     });
