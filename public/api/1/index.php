@@ -9,12 +9,9 @@
  * @license    MIT License (MIT) http://opensource.org/licenses/MIT
  * @version    1.0.0
  */
+use Dflydev\FigCookies\Cookies;
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
-
-use Dflydev\FigCookies\Cookies;
-use Dflydev\FigCookies\SetCookie;
-use Dflydev\FigCookies\FigResponseCookies;
 
 $app = new Slim\App(array(
     'displayErrorDetails' => DEVELOP,

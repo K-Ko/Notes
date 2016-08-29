@@ -9,6 +9,8 @@
  * @license    MIT License (MIT) http://opensource.org/licenses/MIT
  * @version    1.0.0
  */
+use Dflydev\FigCookies\FigResponseCookies;
+use Dflydev\FigCookies\SetCookie;
 
 /**
  *
@@ -42,9 +44,10 @@ $app->POST('/login', function($request, $response, $args) {
 
         $response = FigResponseCookies::set(
             $response,
-            SetCookie::create('token')->withPath('/')
-                                      ->withValue($token)
-                                      ->withExpires(date('r', $until))
+            SetCookie::create('token')
+                ->withPath('/')
+                ->withValue($token)
+                ->withExpires(date('r', $until))
         );
 
         return $response->withJson(array('user' => $found));
