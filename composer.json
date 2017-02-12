@@ -5,7 +5,6 @@
         }
     },
     "require": {
-        "erusev/parsedown": "^1.6",
         "slim/slim": "^3.5",
         "dflydev/fig-cookies": "^1.0"
     }

@@ -9,7 +9,7 @@
  * If you make changes here, they will be lost on next build!
  *
  * @author     Knut Kohl <github@knutkohl.de>
- * @copyright  2016 Knut Kohl
+ * @copyright  2017 Knut Kohl
  * @license    MIT License (MIT) http://opensource.org/licenses/MIT
  *
  * @author     ORM class builder
@@ -162,7 +162,7 @@ abstract class NoteTagBase extends \ORM
      * @var string $createSQL
      */
     protected $createSQL = '
-        CREATE TABLE `note_tag` (
+        CREATE TABLE IF NOT EXISTS `note_tag` (
           `note` int(10) unsigned NOT NULL,
           `tag` int(10) unsigned NOT NULL,
           PRIMARY KEY (`note`,`tag`),

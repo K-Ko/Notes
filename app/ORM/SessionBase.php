@@ -9,7 +9,7 @@
  * If you make changes here, they will be lost on next build!
  *
  * @author     Knut Kohl <github@knutkohl.de>
- * @copyright  2016 Knut Kohl
+ * @copyright  2017 Knut Kohl
  * @license    MIT License (MIT) http://opensource.org/licenses/MIT
  *
  * @author     ORM class builder
@@ -203,10 +203,10 @@ abstract class SessionBase extends \ORM
      * @var string $createSQL
      */
     protected $createSQL = '
-        CREATE TABLE `session` (
-          `user` varchar(32) NOT NULL,
-          `token` char(40) NOT NULL,
-          `until` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        CREATE TABLE IF NOT EXISTS `session` (
+          `user` varchar(32) NOT NULL DEFAULT \'\',
+          `token` char(40) NOT NULL DEFAULT \'\',
+          `until` datetime NOT NULL DEFAULT \'0000-00-00 00:00:00\',
           PRIMARY KEY (`user`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8
     ';

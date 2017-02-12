@@ -22,6 +22,7 @@ return array(
 
     'AddNote'     => 'Notiz hinzufügen',
     'EditNote'    => 'Notiz ändern',
+    'CancelEdit'  => 'Abbrechen',
     'PreviewNote' => 'Vorschau',
     'SaveNote'    => 'Notiz speichern',
     'DeleteNote'  => 'Notiz löschen',
@@ -48,6 +49,7 @@ return array(
     'MarkDownSyntaxHelp' => 'MarkDown Syntax-Hilfe',
     'LinksDiabledInPreview' => 'Links sind in der Vorschau deaktiviert.',
 
-    'SearchFor'   => 'Suche nach ...',
+    'SearchFor'    => 'Suche nach ...',
+    'NothingFound' => 'Keine Treffer',
 
 );
