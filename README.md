@@ -6,7 +6,9 @@
 
 ### Desktop
 
-![Desktop ScreenShot](doc/desktop.png)
+![Desktop ScreenShot Note](doc/desktop1.png)
+
+![Desktop ScreenShot Editor](doc/desktop2.png)
 
 ### Mobile
 
@@ -15,7 +17,7 @@
 ## Install
 
 - Clone the repository
-- Set your document root to the ```public````folder
+- Set your document root to the ```public``` folder
 - Create configuration file
 
     ```cp config/config.dist.php config/config.php```

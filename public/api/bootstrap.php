@@ -35,6 +35,8 @@ ORM::setDatabase($db);
 
 // Prepare ORM note table
 ORM\Note::$DateTimeFormat = $config['DateTimeFormat'];
-ORM\Note::$HashTagRegex   = '~(\s|^)#('.$config['HashTagRegex'].')(\s|$)~';
+ORM\Note::$HashTagRegex   = $config['HashTagRegex'];
 
 $I18N = require ROOTDIR . DS . 'lang' . DS . $config['Language'] . '.php';
+
+$I18N['__language'] = $config['Language'];

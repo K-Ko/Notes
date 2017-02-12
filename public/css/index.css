@@ -44,29 +44,20 @@ body {
 }
 
 .row,
-.row.note .content {
+.row.note .content,
+#column-right {
     display: none;
 }
 
 .row.active,
-.row.note .content.active {
+.row.note .content.active,
+#column-right.active {
     display: block;
 }
 
 .row.login {
     padding-top: 2em;
     padding-bottom: 2em;
-}
-
-.notes-tab {
-    padding: 15px 15px 0 15px;
-    border: 1px solid #ddd;
-    border-top: transparent;
-    display: none;
-}
-
-.notes-tab.active {
-    display: block;
 }
 
 .note h1 {
@@ -85,8 +76,8 @@ body {
     font-size: 14px;
 }
 
-small.badge {
-    margin-left: .5em;
+span.badge {
+    margin-left: .25em;
 }
 
 .footer {
@@ -110,7 +101,7 @@ a.tag {
 
 .cloud {
     float: left;
-    padding-right: 1em;
+    padding: .25em 1em .25em .25em;
 }
 
 .cloud a {
@@ -120,17 +111,18 @@ ul.list {
     padding-left: 20px;
 }
 
-input[name=title] {
-    font-family: monospace;
-}
-
 textarea[name=content] {
-    height: 25em;
+    height: 30em;
     font-family: monospace;
+    padding: .5em;
 }
 
-#preview-content {
-    margin-top: 2em;
+.md-help {
+    display: none;
+}
+
+.md-preview {
+    padding: .5em 1em;
 }
 
 pre code {
@@ -156,6 +148,9 @@ pre code {
 @media (min-width: 768px) {
     .ajax-load-wrapper {
     	display: block;
+    }
+    .md-help {
+        display: block;
     }
 }
 

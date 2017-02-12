@@ -9,7 +9,7 @@
  * If you make changes here, they will be lost on next build!
  *
  * @author     Knut Kohl <github@knutkohl.de>
- * @copyright  2016 Knut Kohl
+ * @copyright  2017 Knut Kohl
  * @license    MIT License (MIT) http://opensource.org/licenses/MIT
  *
  * @author     ORM class builder
@@ -128,12 +128,12 @@ abstract class TagBase extends \ORM
      * @var string $createSQL
      */
     protected $createSQL = '
-        CREATE TABLE `tag` (
+        CREATE TABLE IF NOT EXISTS `tag` (
           `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
           `tag` varchar(255) NOT NULL DEFAULT \'\' COMMENT \'Unique hash tag\',
           PRIMARY KEY (`id`),
           UNIQUE KEY `tag` (`tag`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8
     ';
 
     /**

@@ -22,6 +22,7 @@ return array(
 
     'AddNote'     => 'Add note',
     'EditNote'    => 'Edit note',
+    'CancelEdit'  => 'Cancel',
     'PreviewNote' => 'Preview',
     'SaveNote'    => 'Save note',
     'DeleteNote'  => 'Delete note',
@@ -48,6 +49,7 @@ return array(
     'MarkDownSyntaxHelp' => 'MarkDown syntax help',
     'LinksDiabledInPreview' => 'Links in preview mode are disabled.',
 
-    'SearchFor'   => 'Search for ...',
+    'SearchFor'    => 'Search for ...',
+    'NothingFound' => 'No matches',
 
 );

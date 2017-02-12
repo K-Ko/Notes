@@ -38,44 +38,17 @@ class Note extends NoteBase
      * Find hash tags in 'name' and 'text'
      */
     public function getTags() {
-        $tags = array();
+        $tags    = array();
+        $regex   = '~(?:^|\s)#(' . self::$HashTagRegex . ')(?:\s|$)~ms';
+        $content = preg_replace('~\s+~s', '  ', $this->getContent());
 
-        foreach (array($this->getTitle(), $this->getContent()) as $txt) {
-            if (preg_match_all(self::$HashTagRegex, $txt, $matches, PREG_SET_ORDER)) {
-                foreach ($matches as $match) {
-                    $tags[$match[2]] = true;
-                }
+        if (preg_match_all($regex, $content, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $tags[$match[1]] = true;
             }
         }
 
         return array_keys($tags);
-    }
-
-    /**
-     *
-     */
-    public function format( $formatText = false ) {
-        $note = $this->asObject();
-
-        $note->created = date(self::$DateTimeFormat, strtotime($note->created));
-        $note->changed = date(self::$DateTimeFormat, strtotime($note->changed));
-
-        if ($formatText) {
-            // 1st parse for tags
-            $note->content = preg_replace(
-                self::$HashTagRegex,
-                '$1<a class="search-for-tag hidden-print" data-tag="$2" href="#">#$2</a>$3'.
-                // Hide on screens, print only
-                '<span class="hidden-screen">#$1</span>',
-                $note->content
-            );
-            $note->content = \Parsedown::instance()->text($note->content);
-        }
-
-        // Add. calculated attribute
-        $note->tags = $this->getTags();
-
-        return $note;
     }
 
     /**
